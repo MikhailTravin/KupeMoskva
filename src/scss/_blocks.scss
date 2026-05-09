@@ -1,0 +1,66 @@
+.block-questions {
+    // .block-questions__bg
+
+    &__bg {
+    }
+
+    // .block-questions__content
+
+    &__content {
+    }
+
+    // .block-questions__body
+
+    &__body {
+    }
+
+    // .block-questions__columns
+
+    &__columns {
+    }
+
+    // .block-questions__column
+
+    &__column {
+    }
+
+    // .block-questions__number
+
+    &__number {
+    }
+
+    // .block-questions__item
+
+    &__item {
+    }
+
+    // .block-questions__title
+
+    &__title {
+    }
+
+    // .block-questions__image
+
+    &__image {
+    }
+}
+
+//========================================================================================================================================================
+
+.block-forms {
+    background: #15702f;
+    padding: 70px 0px;
+    @media (max-width: 768px) {
+        padding: 40px 0px;
+    }
+    // .block-forms__content
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        gap: 35px;
+        @media (max-width: 768px) {
+            gap: 25px;
+        }
+    }
+}

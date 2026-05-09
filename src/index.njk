@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <title>Главная</title>
+    {% include 'blocks/head.njk' %}
+</head>
+
+<body class="preload mp">
+    <div class="main-wrapper-outer">
+        {% include 'blocks/header.njk' %}
+        <main class="main">
+
+            <div class="block-questions">
+                <img loading="lazy" src="img/bg2.webp" alt="" class="block-questions__bg">
+                <div class="container">
+                    <div class="block-questions__content">
+                        <h2 class="title2">
+                            Частые вопросы
+                        </h2>
+                        <div class="block-questions__body">
+                            <div class="block-questions__columns">
+                                <div class="block-questions__column">
+                                    <div class="block-questions__number">
+                                        1
+                                    </div>
+                                    <div class="block-questions__item">
+                                        <div class="block-questions__title">
+                                            А можно ли в рассрочку?
+                                        </div>
+                                        <p>
+                                            Нет, мы также делаем на заказ гардеробные,
+                                            прихожие, столы, комоды, стенки, кухни, мебель
+                                            для ванной на заказ.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="block-questions__column">
+                                    <div class="block-questions__number">
+                                        2
+                                    </div>
+                                    <div class="block-questions__item">
+                                        <div class="block-questions__title">
+                                            Сколько длится сборка?
+                                        </div>
+                                        <p>
+                                            Нет, выезд замерщика в Москве и МО
+                                            (до 10 км) бесплатный.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="block-questions__column">
+                                    <div class="block-questions__number">
+                                        3
+                                    </div>
+                                    <div class="block-questions__item">
+                                        <div class="block-questions__title">
+                                            Как подготовить помещение?
+                                        </div>
+                                        <p>
+                                            Мы стараемся изготовить мебель, как можно скорее
+                                            и всегда делаем вовремя. Стандартный срок
+                                            изготовления 10 рабочих дней.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="block-questions__image">
+                                <img loading="lazy" src="img/image13.webp" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="block-forms">
+                <div class="container">
+                    <div class="block-forms__content">
+                        <h2 class="title3">
+                            Остались вопросы <span>?</span>
+                        </h2>
+                        <form action="#" class="form">
+                            <div class="form__inputs">
+                                <div class="form__input">
+                                    <input data-required autocomplete="off" type="text" name="form[]"
+                                        placeholder="Ваше имя" class="input">
+                                    <div class="form__icon">
+                                        <svg aria-hidden="true" width="11" height="12">
+                                            <use xlink:href="img/sprite.svg#user"></use>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="form__input">
+                                    <input data-required autocomplete="off" type="text" name="form[]"
+                                        placeholder="Номер телефона" class="input telephone">
+                                    <div class="form__icon">
+                                        <svg aria-hidden="true" width="12" height="12">
+                                            <use xlink:href="img/sprite.svg#phone"></use>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form__buttons">
+                                <button type="submit" class="btn">Задать вопрос</button>
+                                <div class="form__text">
+                                    Нажимая на кнопку “Задать вопрос” вы соглашаетесь с <a href="./">политикой
+                                        конфиденциальности</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+        {% include 'blocks/footer.njk' %}
+    </div>
+    {% include 'blocks/popups.njk' %}
+    {% include 'blocks/scripts.njk' %}
+</body>
+
+</html>

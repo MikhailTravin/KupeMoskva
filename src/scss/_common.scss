@@ -1,0 +1,182 @@
+body {
+  color: var(--252422);
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 120%;
+  padding: 0px 0px 0px 0px !important;
+  &.hide-scrollbar {
+    margin: 0px 0px 0px 0px !important;
+  }
+  .lock & {
+    overflow: hidden;
+  }
+  .popup-show & {
+    overflow: hidden;
+  }
+  &::before {
+    content: "";
+    cursor: pointer;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 97;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .menu-open & {
+    overflow: hidden;
+    &::before {
+      content: "";
+      opacity: 1;
+      pointer-events: auto;
+      @media (max-width: 500px) {
+        display: none;
+      }
+    }
+  }
+  .filter-open & {
+    overflow: hidden;
+    &::before {
+      content: "";
+      opacity: 1;
+      pointer-events: auto;
+      z-index: 150;
+      @media (max-width: 400px) {
+        display: none;
+      }
+    }
+  }
+}
+
+body.noscroll {
+  overflow: hidden;
+}
+
+input,
+button,
+textarea {
+  font-family: inherit;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+fieldset,
+fieldset legend {
+  margin: 0;
+  border: none;
+  padding: 0;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  outline: none;
+  color: currentcolor;
+}
+
+.title2 {
+  font-family: var(--second-family);
+  font-weight: 700;
+  font-size: 66px;
+  line-height: 121%;
+  text-transform: uppercase;
+  @media (max-width: 768px) {
+    font-size: 50px;
+  }
+  @media (max-width: 550px) {
+    font-size: 42px;
+  }
+}
+
+.title3 {
+  font-family: var(--second-family);
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 113%;
+  text-transform: uppercase;
+  color: var(--ffffff);
+  span {
+    color: var(--fdd551);
+  }
+  @media (max-width: 768px) {
+    font-size: 40px;
+  }
+  @media (max-width: 550px) {
+    font-size: 36px;
+  }
+}
+
+.btn {
+  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-weight: 900;
+  font-size: 14px;
+  line-height: 200%;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--252422);
+  border-radius: 5px;
+  background-color: var(--fdd551);
+  box-shadow: 0 30px 50px 0 rgba(28, 47, 45, 0.1);
+  min-height: 60px;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+  &:hover {
+    color: #ffffff;
+    background-color: #05cf78;
+  }
+}
+
+.socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  @media (max-width: 550px) {
+    gap: 10px;
+  }
+  a {
+    border-radius: 5px;
+    background-color: rgba(239, 235, 232, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 0 1 auto;
+    gap: 15px;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 111%;
+    transition: background-color 0.3s;
+    min-height: 50px;
+    padding: 10px 20px;
+    span {
+      display: block;
+      margin-top: 2px;
+    }
+    img {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      flex: 0 0 20px;
+    }
+    &:hover {
+      background-color: rgba(239, 235, 232, 1);
+    }
+    @media (max-width: 550px) {
+      padding: 5px 15px;
+      min-height: 40px;
+      font-size: 14px;
+    }
+  }
+}
