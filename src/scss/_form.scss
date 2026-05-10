@@ -92,6 +92,10 @@
         border-radius: 50%;
         align-items: center;
         transition: background-color 0.3s;
+        img {
+            width: 24px;
+            height: 24px;
+        }
         svg {
             fill: var(--9d9d9d);
             transition: fill 0.3s;
@@ -335,82 +339,106 @@
         }
     }
 }
-/*
-.checkbox {
-    position: relative;
-    // .checkbox__input
+
+.options {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    // .options__item
+
+    &__item {
+        position: relative;
+    }
+
+    // .options__input
 
     &__input {
         position: absolute;
         width: 0;
         height: 0;
         opacity: 0;
-        &:checked + .checkbox__label .checkbox__text {
-            color: #e21e2b;
-        }
-        &:checked + .checkbox__label .checkbox__icon img {
+        &:checked + .options__label:before {
             opacity: 1;
         }
-        &:checked + .checkbox__label .checkbox__icon {
-            border: 1px solid transparent;
-            background-color: #e21e2b;
+        &:checked + .options__label .options__icon {
+            background-color: var(--52c373);
+        }
+        &:checked + .options__label .options__icon:before {
+            opacity: 1;
         }
     }
 
-    // .checkbox__label
+    // .options__label
 
     &__label {
-        cursor: pointer;
         display: flex;
-        gap: 10px;
-    }
-
-    // .checkbox__icon
-
-    &__icon {
-        border: 1px solid #dbdbdb;
-        border-radius: 3px;
-        background-color: #fff;
-        width: 20px;
-        height: 20px;
-        flex: 0 0 20px;
-        display: flex;
-        justify-content: center;
         align-items: center;
-        transition:
-            background-color 0.3s,
-            border 0.3s;
-        @media (max-width: 768px) {
-            width: 16px;
-            height: 16px;
-            flex: 0 0 16px;
-        }
-        img {
-            display: block;
-            margin-right: -1px;
-            width: 14px;
-            height: auto;
+        justify-content: start;
+        gap: 15px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 5px;
+        padding: 14px 19px;
+        position: relative;
+        overflow: hidden;
+        &::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--52c373);
             opacity: 0;
             transition: opacity 0.3s;
-            @media (max-width: 768px) {
-                width: 12px;
-            }
+        }
+        &::after {
+            content: "";
+            position: absolute;
+            left: 3px;
+            top: 3px;
+            width: calc(100% - 6px);
+            height: calc(100% - 6px);
+            border-radius: 3px;
+            background: #15702f;
         }
     }
 
-    // .checkbox__text
+    // .options__icon
+
+    &__icon {
+        position: relative;
+        z-index: 15;
+        flex: 0 0 20px;
+        border-radius: 5px;
+        background-color: var(--ffffff);
+        width: 20px;
+        height: 20px;
+        transition: background-color 0.3s;
+        position: relative;
+        &::before {
+            content: "";
+            display: flex;
+            width: 6px;
+            height: 6px;
+            border-radius: 1px;
+            position: absolute;
+            background: var(--ffffff);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+    }
+
+    // .options__text
 
     &__text {
-        font-weight: 300;
-        font-size: 16px;
-        line-height: 130%;
-        text-transform: uppercase;
-        span {
-            color: #878787;
-        }
-        @media (max-width: 768px) {
-            font-size: 14px;
-        }
+        position: relative;
+        z-index: 15;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 143%;
+        color: var(--ffffff);
     }
 }
-*/
