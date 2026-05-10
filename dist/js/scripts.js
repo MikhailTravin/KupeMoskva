@@ -432,13 +432,103 @@ function formSubmit() {
 formSubmit();
 
 //========================================================================================================================================================
-/*
+
+const filterButtons = document.querySelectorAll('.block-reviews__navigation .block-reviews__title');
+if (filterButtons.length) {
+  const slides = document.querySelectorAll('.block-reviews__slide');
+  const swiperContainer = document.querySelector('.block-reviews__slider');
+  let swiperReviews = null;
+
+  if (swiperContainer) {
+    swiperReviews = new Swiper('.block-reviews__slider', {
+      observer: true,
+      observeParents: true,
+      slidesPerView: 1,
+      spaceBetween: 15,
+      speed: 400,
+      navigation: {
+        prevEl: '.block-reviews__arrow-prev',
+        nextEl: '.block-reviews__arrow-next',
+      },
+      breakpoints: {
+        480: {
+          slidesPerView: 'auto',
+          spaceBetween: 15,
+        },
+        992: {
+          slidesPerView: 'auto',
+          spaceBetween: 30,
+        },
+      },
+    });
+  }
+
+  function setActiveButton(activeFilter) {
+    filterButtons.forEach(button => {
+      const filterValue = button.getAttribute('data-filter');
+      if (filterValue === activeFilter) {
+        button.classList.add('active');
+      } else {
+        button.classList.remove('active');
+      }
+    });
+  }
+
+  function filterSlides(filterValue) {
+    slides.forEach(slide => {
+      const slideFilter = slide.getAttribute('data-filter');
+
+      if (filterValue === 'all' || slideFilter === filterValue) {
+        slide.style.display = 'flex';
+        slide.classList.remove('swiper-slide-hidden');
+      } else {
+        slide.style.display = 'none';
+        slide.classList.add('swiper-slide-hidden');
+      }
+    });
+
+    if (swiperReviews) {
+      setTimeout(() => {
+        swiperReviews.update();
+        swiperReviews.updateSlides();
+        swiperReviews.updateSize();
+        swiperReviews.updateProgress();
+
+        if (swiperReviews.navigation) {
+          swiperReviews.navigation.update();
+        }
+      }, 50);
+    }
+  }
+
+  filterButtons.forEach(button => {
+    button.addEventListener('click', function (e) {
+      e.preventDefault();
+      const filterValue = this.getAttribute('data-filter');
+
+      if (filterValue) {
+        setActiveButton(filterValue);
+        filterSlides(filterValue);
+      }
+    });
+  });
+}
+
+//========================================================================================================================================================
+
+Fancybox.bind("[data-fancybox]", {
+  // опции
+});
+
+//========================================================================================================================================================
+
 class SelectConstructor {
   constructor(props, data = null) {
     let defaultConfig = {
       init: true,
       logging: true,
-      speed: 150
+      speed: 150,
+      editable: false
     }
     this.config = Object.assign(defaultConfig, props);
     this.selectClasses = {
@@ -457,6 +547,7 @@ class SelectConstructor {
       classSelectRow: "select__row",
       classSelectData: "select__asset",
       classSelectArrow: "select__arrow",
+      classSelectIcon: "select__icon",
       classSelectDisabled: "_select-disabled",
       classSelectTag: "_select-tag",
       classSelectOpen: "_select-open",
@@ -466,6 +557,8 @@ class SelectConstructor {
       classSelectCheckBox: "_select-checkbox",
       classSelectOptionSelected: "_select-selected",
       classSelectPseudoLabel: "_select-pseudo-label",
+      classSelectEditable: "_select-editable",
+      classSelectTelephone: "telephone",
     }
     this._this = this;
     if (this.config.init) {
@@ -516,6 +609,12 @@ class SelectConstructor {
       originalSelect.dataset.placeholder = this.getSelectPlaceholder(originalSelect).value;
     }
 
+    // Всегда включаем редактируемый режим для такого типа селекта
+    if (originalSelect.hasAttribute('data-editable') || true) {
+      this.config.editable = true;
+      selectItem.classList.add(this.selectClasses.classSelectEditable);
+    }
+
     this.selectBuild(originalSelect);
 
     originalSelect.dataset.speed = originalSelect.dataset.speed ? originalSelect.dataset.speed : this.config.speed;
@@ -557,7 +656,9 @@ class SelectConstructor {
             const optionItem = document.querySelector(`.${this.selectClasses.classSelect}[data-id="${targetTag.dataset.selectId}"] .select__option[data-value="${targetTag.dataset.value}"]`);
             this.optionAction(selectItem, originalSelect, optionItem);
           } else if (targetElement.closest(this.getSelectClass(this.selectClasses.classSelectTitle))) {
-            this.selectAction(selectItem);
+            if (!this.config.editable || !targetElement.closest(`.${this.selectClasses.classSelectContent}`)) {
+              this.selectAction(selectItem);
+            }
           } else if (targetElement.closest(this.getSelectClass(this.selectClasses.classSelectOption))) {
             const optionItem = targetElement.closest(this.getSelectClass(this.selectClasses.classSelectOption));
             this.optionAction(selectItem, originalSelect, optionItem);
@@ -625,10 +726,22 @@ class SelectConstructor {
     selectItemBody.insertAdjacentHTML("afterbegin", this.getSelectTitleValue(selectItem, originalSelect));
 
     originalSelect.hasAttribute('data-search') ? this.searchActions(selectItem) : null;
+
+    if (this.config.editable && !originalSelect.multiple) {
+      this.setupEditableContent(selectItem, originalSelect);
+    }
   }
   getSelectTitleValue(selectItem, originalSelect) {
     let selectTitleValue = this.getSelectedOptionsData(originalSelect, 2).html;
     const selectedOptions = this.getSelectedOptionsData(originalSelect);
+
+    let selectedIcon = '';
+    let isTelephone = false;
+    if (selectedOptions.elements.length > 0 && selectedOptions.elements[0]) {
+      selectedIcon = this.getOptionIcon(selectedOptions.elements[0]);
+      // Проверяем, является ли выбранная опция телефоном
+      isTelephone = selectedOptions.elements[0].dataset.icon === 'svg-phone';
+    }
 
     if (originalSelect.multiple && originalSelect.hasAttribute('data-tags')) {
       selectTitleValue = selectedOptions.elements.map(option => `<span role="button" data-select-id="${selectItem.dataset.id}" data-value="${option.value}" class="${this.selectClasses.classSelectTag}">${this.getSelectElementContent(option)}</span>`).join('');
@@ -639,10 +752,25 @@ class SelectConstructor {
       }
     }
 
-    if (selectedOptions.values.length > 0) {
-      selectTitleValue = selectTitleValue.length ? selectTitleValue : '';
+    // Получаем placeholder из выбранной опции
+    let placeholderText = '';
+    let currentValue = '';
+
+    if (selectedOptions.values.length > 0 && selectedOptions.elements[0]) {
+      placeholderText = selectedOptions.elements[0].textContent.trim();
+      // Проверяем, является ли текущее значение кастомным (не совпадает с текстом опции)
+      const optionValue = selectedOptions.elements[0].value;
+      const optionText = selectedOptions.elements[0].textContent.trim();
+
+      // Если value отличается от текста опции и не равно ID опции, значит это кастомное значение
+      if (optionValue !== optionText && optionValue !== String(selectedOptions.elements[0].getAttribute('value'))) {
+        currentValue = optionValue;
+      } else {
+        currentValue = '';
+      }
     } else {
-      selectTitleValue = originalSelect.dataset.placeholder ? originalSelect.dataset.placeholder : '';
+      placeholderText = originalSelect.dataset.placeholder ? originalSelect.dataset.placeholder : '';
+      currentValue = '';
     }
 
     let pseudoAttribute = '';
@@ -654,13 +782,172 @@ class SelectConstructor {
 
     selectedOptions.values.length ? selectItem.classList.add(this.selectClasses.classSelectActive) : selectItem.classList.remove(this.selectClasses.classSelectActive);
 
+    const arrowHtml = this.getArrowWithIcon(originalSelect, selectedIcon);
+
     if (originalSelect.hasAttribute('data-search')) {
-      return `<div class="${this.selectClasses.classSelectTitle}"><span${pseudoAttribute} class="${this.selectClasses.classSelectValue}"><input autocomplete="off" type="text" placeholder="${selectTitleValue}" data-placeholder="${selectTitleValue}" class="${this.selectClasses.classSelectInput}"></span></div>`;
+      return `<div class="${this.selectClasses.classSelectTitle}"><span${pseudoAttribute} class="${this.selectClasses.classSelectValue}"><input autocomplete="off" type="text" placeholder="${this.escapeHtml(placeholderText)}" data-placeholder="${this.escapeHtml(placeholderText)}" class="${this.selectClasses.classSelectInput}">${arrowHtml}</span></div>`;
     } else {
       const customClass = selectedOptions.elements.length && selectedOptions.elements[0] && selectedOptions.elements[0].dataset.class ? ` ${selectedOptions.elements[0].dataset.class}` : '';
+      // Добавляем класс telephone если выбрана опция с телефоном
+      const telephoneClass = isTelephone ? ` ${this.selectClasses.classSelectTelephone}` : '';
 
-      return `<button type="button" class="${this.selectClasses.classSelectTitle}"><span${pseudoAttribute} class="${this.selectClasses.classSelectValue}${pseudoAttributeClass}"><span class="${this.selectClasses.classSelectContent}${customClass}">${selectTitleValue}</span><span class="${this.selectClasses.classSelectArrow}"></span></span></button>`;
+      if (this.config.editable && !originalSelect.multiple) {
+        return `<div class="${this.selectClasses.classSelectTitle}"><span${pseudoAttribute} class="${this.selectClasses.classSelectValue}${pseudoAttributeClass}">
+          <input type="text" class="${this.selectClasses.classSelectContent}${customClass}${telephoneClass}" value="${this.escapeHtml(currentValue)}" placeholder="${this.escapeHtml(placeholderText)}">
+          ${arrowHtml}
+        </span></div>`;
+      } else {
+        return `<button type="button" class="${this.selectClasses.classSelectTitle}"><span${pseudoAttribute} class="${this.selectClasses.classSelectValue}${pseudoAttributeClass}"><span class="${this.selectClasses.classSelectContent}${customClass}">${this.escapeHtml(String(selectTitleValue))}</span>${arrowHtml}</span></button>`;
+      }
     }
+  }
+  escapeHtml(str) {
+    if (str === undefined || str === null) return '';
+    const stringValue = String(str);
+    return stringValue.replace(/[&<>]/g, function (m) {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      return m;
+    });
+  }
+  getOptionIcon(selectOption) {
+    const iconData = selectOption.dataset.icon;
+    if (!iconData) return '';
+
+    if (iconData === 'svg-phone') {
+      return `<svg aria-hidden="true" width="12" height="12">
+                <use xlink:href="img/sprite.svg#phone"></use>
+              </svg>`;
+    }
+
+    if (iconData.endsWith('.svg') || iconData.includes('img/')) {
+      return `<img src="${iconData}" alt="" width="16" height="16">`;
+    }
+
+    return iconData;
+  }
+  getArrowWithIcon(originalSelect, selectedIcon) {
+    let iconHtml = selectedIcon;
+    if (!iconHtml && originalSelect.dataset.selectedIcon) {
+      iconHtml = originalSelect.dataset.selectedIcon;
+    }
+
+    if (iconHtml) {
+      return `<span class="${this.selectClasses.classSelectArrow}"><span class="${this.selectClasses.classSelectIcon}">${iconHtml}</span></span>`;
+    }
+
+    return `<span class="${this.selectClasses.classSelectArrow}"></span>`;
+  }
+  setupEditableContent(selectItem, originalSelect) {
+    const contentInput = selectItem.querySelector(`.${this.selectClasses.classSelectContent}`);
+    if (!contentInput) return;
+
+    const _this = this;
+    let isUpdating = false;
+
+    // При вводе текста просто обновляем value select'а без создания новых опций
+    contentInput.addEventListener('input', function (e) {
+      if (isUpdating) return;
+
+      const newValue = this.value;
+
+      if (!isUpdating) {
+        isUpdating = true;
+
+        // Просто обновляем value select'а
+        originalSelect.value = newValue;
+
+        // Если value не пустое, делаем его выбранным
+        if (newValue.trim()) {
+          // Проверяем, есть ли опция с таким value
+          let existingOption = Array.from(originalSelect.options).find(option => option.value === newValue);
+
+          if (!existingOption && !originalSelect.querySelector(`option[value="${newValue}"]`)) {
+            // Не создаем новую опцию, просто устанавливаем значение
+            // Можно добавить временную опцию, но не сохранять ее
+            const tempOption = document.createElement('option');
+            tempOption.value = newValue;
+            tempOption.textContent = newValue;
+            tempOption.selected = true;
+            originalSelect.appendChild(tempOption);
+          } else if (existingOption) {
+            existingOption.selected = true;
+          }
+        } else {
+          originalSelect.selectedIndex = -1;
+        }
+
+        _this.setSelectChange(originalSelect);
+        isUpdating = false;
+      }
+
+      // Обновляем иконку
+      const selectedOptions = _this.getSelectedOptionsData(originalSelect);
+      if (selectedOptions.elements.length > 0 && selectedOptions.elements[0]) {
+        const newIcon = _this.getOptionIcon(selectedOptions.elements[0]);
+        const arrowSpan = selectItem.querySelector(`.${_this.selectClasses.classSelectArrow}`);
+        if (arrowSpan && newIcon) {
+          arrowSpan.innerHTML = `<span class="${_this.selectClasses.classSelectIcon}">${newIcon}</span>`;
+        }
+      }
+    });
+
+    // При потере фокуса
+    contentInput.addEventListener('blur', function () {
+      if (isUpdating) return;
+
+      if (selectItem.classList.contains(_this.selectClasses.classSelectOpen)) {
+        _this.selectAction(selectItem);
+      }
+    });
+
+    // При нажатии Enter
+    contentInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        this.blur();
+      } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        if (!selectItem.classList.contains(_this.selectClasses.classSelectOpen)) {
+          _this.selectAction(selectItem);
+        }
+        e.preventDefault();
+      } else if (e.key === 'Escape') {
+        if (selectItem.classList.contains(_this.selectClasses.classSelectOpen)) {
+          _this.selectAction(selectItem);
+        }
+      }
+    });
+
+    // При выборе опции из списка
+    const updateInputValue = function () {
+      if (!isUpdating) {
+        const selectedOptions = _this.getSelectedOptionsData(originalSelect);
+        if (selectedOptions.elements.length > 0) {
+          const option = selectedOptions.elements[0];
+          const optionText = option.textContent.trim();
+
+          contentInput.placeholder = optionText;
+
+          // Если value отличается от текста опции, показываем его
+          if (option.value !== optionText && !option.value.match(/^\d+$/)) {
+            contentInput.value = option.value;
+          } else {
+            contentInput.value = '';
+          }
+        } else {
+          contentInput.value = '';
+          contentInput.placeholder = '';
+        }
+      }
+    };
+
+    originalSelect.addEventListener('change', updateInputValue);
+    updateInputValue();
+  }
+  findOptionByText(originalSelect, text) {
+    return Array.from(originalSelect.options).find(option =>
+      option.textContent.trim().toLowerCase() === text.trim().toLowerCase()
+    );
   }
   getSelectElementContent(selectOption) {
     const selectOptionData = selectOption.dataset.asset ? `${selectOption.dataset.asset}` : '';
@@ -733,8 +1020,17 @@ class SelectConstructor {
     const selectOptionClass = selectOption.dataset.class ? ` ${selectOption.dataset.class}` : '';
     const selectOptionLink = selectOption.dataset.href ? selectOption.dataset.href : false;
     const selectOptionLinkTarget = selectOption.hasAttribute('data-href-blank') ? `target="_blank"` : '';
+
+    let iconHtml = '';
+    if (selectOption.dataset.icon) {
+      iconHtml = this.getOptionIcon(selectOption);
+    }
+
     let selectOptionHTML = ``;
     selectOptionHTML += selectOptionLink ? `<a ${selectOptionLinkTarget} ${selectOptionHide} href="${selectOptionLink}" data-value="${selectOption.value}" class="${this.selectClasses.classSelectOption}${selectOptionClass}${selectOptionSelected}">` : `<button ${selectOptionHide} class="${this.selectClasses.classSelectOption}${selectOptionClass}${selectOptionSelected}" data-value="${selectOption.value}" type="button">`;
+    if (iconHtml) {
+      selectOptionHTML += `<span class="select__option-icon">${iconHtml}</span>`;
+    }
     selectOptionHTML += this.getSelectElementContent(selectOption);
     selectOptionHTML += selectOptionLink ? `</a>` : `</button>`;
     return selectOptionHTML;
@@ -839,10 +1135,14 @@ class SelectConstructor {
       selectItem.classList.add(this.selectClasses.classSelectDisabled);
       const titleElement = this.getSelectElement(selectItem, this.selectClasses.classSelectTitle).selectElement;
       if (titleElement) titleElement.disabled = true;
+      const contentInput = selectItem.querySelector(`.${this.selectClasses.classSelectContent}`);
+      if (contentInput) contentInput.disabled = true;
     } else {
       selectItem.classList.remove(this.selectClasses.classSelectDisabled);
       const titleElement = this.getSelectElement(selectItem, this.selectClasses.classSelectTitle).selectElement;
       if (titleElement) titleElement.disabled = false;
+      const contentInput = selectItem.querySelector(`.${this.selectClasses.classSelectContent}`);
+      if (contentInput) contentInput.disabled = false;
     }
   }
   searchActions(selectItem) {
@@ -863,6 +1163,15 @@ class SelectConstructor {
     });
   }
   selectCallback(selectItem, originalSelect) {
+    // Применяем маску к новому инпуту с классом telephone
+    const telephoneInput = selectItem.querySelector('.telephone');
+    if (telephoneInput && window.Inputmask) {
+      Inputmask({
+        "mask": "+7 (999) 999 - 99 - 99",
+        "showMaskOnHover": false,
+      }).mask(telephoneInput);
+    }
+
     document.dispatchEvent(new CustomEvent("selectCallback", {
       detail: {
         select: originalSelect
@@ -871,6 +1180,7 @@ class SelectConstructor {
   }
 }
 
+// Инициализация
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', function () {
     window.modules_flsModules = window.modules_flsModules || {};
@@ -880,6 +1190,10 @@ if (document.readyState === 'loading') {
   window.modules_flsModules = window.modules_flsModules || {};
   modules_flsModules.select = new SelectConstructor({});
 }
+
+//========================================================================================================================================================
+/*
+
 
 //========================================================================================================================================================
 
@@ -1500,9 +1814,7 @@ formRating();
 
 //========================================================================================================================================================
 
-Fancybox.bind("[data-fancybox]", {
-  // опции
-});
+
 
 //========================================================================================================================================================
 
