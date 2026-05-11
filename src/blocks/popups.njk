@@ -1,67 +1,105 @@
-<div id="forms" aria-hidden="true" class="popup popup-forms">
+<div id="call" aria-hidden="true" class="popup popup-forms">
     <div class="popup__wrapper">
         <div class="popup__content">
             <div data-close class="popup__close">
-                <img src="img/icons/close.svg" alt="">
+                <svg aria-hidden="true" width="16" height="16">
+                    <use xlink:href="img/sprite.svg#close"></use>
+                </svg>
             </div>
             <div class="popup-forms__body">
                 <div class="popup-forms__top">
-                    <div class="popup-forms__title">Оставить заявку</div>
-                    <p>
-                        Lorem ipsum dolor sit amet.
-                    </p>
+                    <div class="popup-forms__title">Заказать звонок</div>
                 </div>
-                <form action="#" class="form">
+                <form data-popup-message="#thanks" method="POST" action="send-call.php" data-ajax class="form">
                     <div class="form__inputs">
                         <div class="form__input">
-                            <img loading="lazy" src="img/icons/user.svg" alt="">
-                            <input data-required autocomplete="off" type="text" name="form[1]" placeholder="Ваше имя"
+                            <input data-required autocomplete="off" type="text" name="name" placeholder="Ваше имя"
                                 class="input">
+                            <div class="form__icon">
+                                <svg aria-hidden="true" width="11" height="12">
+                                    <use xlink:href="img/sprite.svg#user"></use>
+                                </svg>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form__inputs">
                         <div class="form__input">
-                            <img loading="lazy" src="img/icons/phone.svg" alt="">
-                            <input data-required autocomplete="off" type="text" name="form[1]"
+                            <input data-required autocomplete="off" type="text" name="phone"
                                 placeholder="Номер телефона" class="input telephone">
+                            <div class="form__icon">
+                                <svg aria-hidden="true" width="12" height="12">
+                                    <use xlink:href="img/sprite.svg#phone"></use>
+                                </svg>
+                            </div>
                         </div>
-                        <div class="form__input">
-                            <img loading="lazy" src="img/icons/location.svg" alt="">
-                            <input data-required autocomplete="off" type="text" name="form[1]" placeholder="Город"
-                                class="input">
+                        <button type="submit" class="btn">Заказать звонок</button>
+                        <div class="form__text">
+                            Нажимая на кнопку “Заказать звонок” вы соглашаетесь с <a href="./">политикой
+                                конфиденциальности</a>
                         </div>
-                    </div>
-                    <div class="form__inputs">
-                        <select name="form[1]" class="select1">
-                            <option value="" data-show data-label data-label="Марка:" selected>
-                                Марка
-                            </option>
-                            <option value="1">Марка1</option>
-                            <option value="2">Марка2</option>
-                            <option value="3">Марка3</option>
-                            <option value="4">Марка4</option>
-                        </select>
-                        <select name="form[1]" class="select2">
-                            <option value="" data-show data-label data-label="Модель:" selected>
-                                Модель
-                            </option>
-                            <option value="1">Модель1</option>
-                            <option value="2">Модель2</option>
-                            <option value="3">Модель3</option>
-                            <option value="4">Модель4</option>
-                        </select>
-                    </div>
-                    <div class="form__inputs">
-                        <div class="form__input textarea">
-                            <textarea data-required placeholder="Ваш вопрос" class="input" name="form[1]"></textarea>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn">Отправить</button>
-                    <div class="form__text">
-                        Нажимая на кнопку, вы даете согласие на обработку своих персональных данных и
-                        соглашаетесь с <a href="./">Политикой конфиденциальности</a>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="call-surveyor" aria-hidden="true" class="popup popup-forms">
+    <div class="popup__wrapper">
+        <div class="popup__content">
+            <div data-close class="popup__close">
+                <svg aria-hidden="true" width="16" height="16">
+                    <use xlink:href="img/sprite.svg#close"></use>
+                </svg>
+            </div>
+            <div class="popup-forms__body">
+                <div class="popup-forms__top">
+                    <div class="popup-forms__title">Вызвать замерщика</div>
+                </div>
+                <form data-popup-message="#thanks" method="POST" action="send-call-surveyor.php" data-ajax class="form">
+                    <div class="form__inputs">
+                        <div class="form__input">
+                            <input data-required autocomplete="off" type="text" name="name" placeholder="Ваше имя"
+                                class="input">
+                            <div class="form__icon">
+                                <svg aria-hidden="true" width="11" height="12">
+                                    <use xlink:href="img/sprite.svg#user"></use>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="form__input">
+                            <input data-required autocomplete="off" type="text" name="phone"
+                                placeholder="Номер телефона" class="input telephone">
+                            <div class="form__icon">
+                                <svg aria-hidden="true" width="12" height="12">
+                                    <use xlink:href="img/sprite.svg#phone"></use>
+                                </svg>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn">Вызвать замерщика</button>
+                        <div class="form__text">
+                            Нажимая на кнопку “Вызвать замерщика” вы соглашаетесь с <a href="./">политикой
+                                конфиденциальности</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="thanks" aria-hidden="true" class="popup popup-forms">
+    <div class="popup__wrapper">
+        <div class="popup__content">
+            <div data-close class="popup__close">
+                <svg aria-hidden="true" width="16" height="16">
+                    <use xlink:href="img/sprite.svg#close"></use>
+                </svg>
+            </div>
+            <div class="popup-forms__body">
+                <div class="popup-forms__top">
+                    <div class="popup-forms__title">Спасибо за заявку!</div>
+                    <p>
+                        Свяжимся с вами в ближайшее время.
+                    </p>
+                </div>
             </div>
         </div>
     </div>

@@ -7,14 +7,21 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  //justify-content: center;
+  justify-content: center;
   align-items: stretch;
   overflow: hidden;
 }
 
 .main {
-  //flex-grow: 1;
-  //flex-shrink: 1;
+  flex-grow: 1;
+  flex-shrink: 1;
+  margin-top: 179px;
+  @media (max-width: 1200px) {
+    margin-top: 80px;
+  }
+  @media (max-width: 768px) {
+    margin-top: 67px;
+  }
 }
 
 .container {

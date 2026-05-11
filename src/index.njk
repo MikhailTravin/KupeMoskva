@@ -80,12 +80,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <form action="#" class="block-quiz__steps">
+                            <form action="send-quiz.php" data-ajax class="block-quiz__steps">
                                 <div class="block-quiz__step step1">
                                     <div class="block-quiz__question">
-                                        <div class="block-quiz__number">
-                                            1
-                                        </div>
+                                        <div class="block-quiz__number">1</div>
                                         <span>Где будет шкаф?</span>
                                     </div>
                                     <div class="block-quiz__body">
@@ -93,7 +91,7 @@
                                             <div class="options">
                                                 <label class="options__item">
                                                     <input hidden data-required class="options__input" checked
-                                                        type="radio" value="1" name="option1">
+                                                        type="radio" value="Гостиная" name="location">
                                                     <span class="options__label">
                                                         <div class="options__icon"></div>
                                                         <span class="options__text">Гостиная</span>
@@ -101,7 +99,7 @@
                                                 </label>
                                                 <label class="options__item">
                                                     <input hidden data-required class="options__input" type="radio"
-                                                        value="2" name="option1">
+                                                        value="Прихожая" name="location">
                                                     <span class="options__label">
                                                         <div class="options__icon"></div>
                                                         <span class="options__text">Прихожая</span>
@@ -109,7 +107,7 @@
                                                 </label>
                                                 <label class="options__item">
                                                     <input hidden data-required class="options__input" type="radio"
-                                                        value="3" name="option1">
+                                                        value="Коридор" name="location">
                                                     <span class="options__label">
                                                         <div class="options__icon"></div>
                                                         <span class="options__text">Коридор</span>
@@ -117,7 +115,7 @@
                                                 </label>
                                                 <label class="options__item">
                                                     <input hidden data-required class="options__input" type="radio"
-                                                        value="4" name="option1">
+                                                        value="Детская" name="location">
                                                     <span class="options__label">
                                                         <div class="options__icon"></div>
                                                         <span class="options__text">Детская</span>
@@ -125,7 +123,7 @@
                                                 </label>
                                                 <label class="options__item">
                                                     <input hidden data-required class="options__input" type="radio"
-                                                        value="5" name="option1">
+                                                        value="Спальня" name="location">
                                                     <span class="options__label">
                                                         <div class="options__icon"></div>
                                                         <span class="options__text">Спальня</span>
@@ -133,7 +131,7 @@
                                                 </label>
                                                 <label class="options__item">
                                                     <input hidden data-required class="options__input" type="radio"
-                                                        value="6" name="option1">
+                                                        value="Зал" name="location">
                                                     <span class="options__label">
                                                         <div class="options__icon"></div>
                                                         <span class="options__text">Зал</span>
@@ -141,7 +139,7 @@
                                                 </label>
                                                 <label class="options__item">
                                                     <input hidden data-required class="options__input" type="radio"
-                                                        value="7" name="option1">
+                                                        value="Гардеробная" name="location">
                                                     <span class="options__label">
                                                         <div class="options__icon"></div>
                                                         <span class="options__text">Гардеробная</span>
@@ -149,7 +147,7 @@
                                                 </label>
                                                 <label class="options__item">
                                                     <input hidden data-required class="options__input" type="radio"
-                                                        value="8" name="option1">
+                                                        value="Веранда" name="location">
                                                     <span class="options__label">
                                                         <div class="options__icon"></div>
                                                         <span class="options__text">Веранда</span>
@@ -162,17 +160,16 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div style="display: none;" class="block-quiz__step step2">
                                     <div class="block-quiz__question">
-                                        <div class="block-quiz__number">
-                                            2
-                                        </div>
+                                        <div class="block-quiz__number">2</div>
                                         <span>Примерные размеры?</span>
                                     </div>
                                     <div class="block-quiz__body">
                                         <div class="block-quiz__left">
                                             <div class="form__input">
-                                                <input data-required autocomplete="off" type="text" name="form[]"
+                                                <input data-required autocomplete="off" type="text" name="size"
                                                     placeholder="Введите размер в мм (прим. 124х90х90)"
                                                     class="input size">
                                             </div>
@@ -183,11 +180,10 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div style="display: none;" class="block-quiz__step step3">
                                     <div class="block-quiz__question">
-                                        <div class="block-quiz__number">
-                                            3
-                                        </div>
+                                        <div class="block-quiz__number">3</div>
                                         <span>Какие фасады нравятся?</span>
                                     </div>
                                     <div class="block-quiz__body">
@@ -195,7 +191,7 @@
                                             <div class="options">
                                                 <label class="options__item">
                                                     <input hidden data-required class="options__input" checked
-                                                        type="radio" value="1" name="option2">
+                                                        type="radio" value="Зеркало" name="facade">
                                                     <span class="options__label">
                                                         <div class="options__icon"></div>
                                                         <span class="options__text">Зеркало</span>
@@ -203,7 +199,7 @@
                                                 </label>
                                                 <label class="options__item">
                                                     <input hidden data-required class="options__input" type="radio"
-                                                        value="2" name="option2">
+                                                        value="МДФ" name="facade">
                                                     <span class="options__label">
                                                         <div class="options__icon"></div>
                                                         <span class="options__text">МДФ</span>
@@ -211,7 +207,7 @@
                                                 </label>
                                                 <label class="options__item">
                                                     <input hidden data-required class="options__input" type="radio"
-                                                        value="3" name="option2">
+                                                        value="ЛДСП" name="facade">
                                                     <span class="options__label">
                                                         <div class="options__icon"></div>
                                                         <span class="options__text">ЛДСП</span>
@@ -219,7 +215,7 @@
                                                 </label>
                                                 <label class="options__item">
                                                     <input hidden data-required class="options__input" type="radio"
-                                                        value="4" name="option2">
+                                                        value="ДСП" name="facade">
                                                     <span class="options__label">
                                                         <div class="options__icon"></div>
                                                         <span class="options__text">ДСП</span>
@@ -227,34 +223,34 @@
                                                 </label>
                                                 <label class="options__item">
                                                     <input hidden data-required class="options__input" type="radio"
-                                                        value="5" name="option2">
+                                                        value="Матовый" name="facade">
                                                     <span class="options__label">
                                                         <div class="options__icon"></div>
-                                                        <span class="options__text">ДСП</span>
+                                                        <span class="options__text">Матовый</span>
                                                     </span>
                                                 </label>
                                                 <label class="options__item">
                                                     <input hidden data-required class="options__input" type="radio"
-                                                        value="6" name="option2">
+                                                        value="Глянец" name="facade">
                                                     <span class="options__label">
                                                         <div class="options__icon"></div>
-                                                        <span class="options__text">ЛДСП</span>
+                                                        <span class="options__text">Глянец</span>
                                                     </span>
                                                 </label>
                                                 <label class="options__item">
                                                     <input hidden data-required class="options__input" type="radio"
-                                                        value="7" name="option2">
+                                                        value="Стекло" name="facade">
                                                     <span class="options__label">
                                                         <div class="options__icon"></div>
-                                                        <span class="options__text">Зеркало</span>
+                                                        <span class="options__text">Стекло</span>
                                                     </span>
                                                 </label>
                                                 <label class="options__item">
                                                     <input hidden data-required class="options__input" type="radio"
-                                                        value="8" name="option2">
+                                                        value="Пластик" name="facade">
                                                     <span class="options__label">
                                                         <div class="options__icon"></div>
-                                                        <span class="options__text">МДФ</span>
+                                                        <span class="options__text">Пластик</span>
                                                     </span>
                                                 </label>
                                             </div>
@@ -265,32 +261,31 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div style="display: none;" class="block-quiz__step step4">
                                     <div class="block-quiz__question">
-                                        <div class="block-quiz__number">
-                                            4
-                                        </div>
+                                        <div class="block-quiz__number">4</div>
                                         <span>Куда прислать расчет и закрепить подарок?</span>
                                     </div>
                                     <div class="block-quiz__body">
                                         <div class="block-quiz__left">
                                             <div class="form__inputs">
                                                 <div class="form__input">
-                                                    <input data-required autocomplete="off" type="text" name="form[]"
+                                                    <input data-required autocomplete="off" type="text" name="telegram"
                                                         placeholder="Telegram" class="input">
                                                     <div class="form__icon">
                                                         <img loading="lazy" src="img/icons/tg.svg" alt="">
                                                     </div>
                                                 </div>
                                                 <div class="form__input">
-                                                    <input data-required autocomplete="off" type="text" name="form[]"
+                                                    <input data-required autocomplete="off" type="text" name="max_name"
                                                         placeholder="Max" class="input">
                                                     <div class="form__icon">
                                                         <img loading="lazy" src="img/icons/max.svg" alt="">
                                                     </div>
                                                 </div>
                                                 <div class="form__input">
-                                                    <input data-required autocomplete="off" type="text" name="form[]"
+                                                    <input data-required autocomplete="off" type="text" name="phone"
                                                         placeholder="Телефон" class="input telephone">
                                                     <div class="form__icon">
                                                         <svg aria-hidden="true" width="12" height="12">
@@ -322,7 +317,7 @@
                 </div>
             </div>
 
-            <div class="block-works">
+            <div data-watch="navigator" class="block-works">
                 <div class="container">
                     <div class="block-works__content">
                         <div class="block-works__heading-complex">
@@ -598,14 +593,15 @@
                                 собственного производства мы предложим цену на 5-10% ниже без потери качества!
                             </p>
                         </div>
-                        <form action="#" class="form">
+                        <form data-popup-message="#thanks" method="POST" action="send-estimate.php" data-ajax
+                            class="form">
                             <div class="form__inputs">
                                 <div class="form__input">
-                                    <select name="form[]" class="select" data-editable>
-                                        <option data-icon="img/icons/tg.svg" value="1" selected>Ваш Telegram
+                                    <select name="select" class="select" data-editable>
+                                        <option data-icon="img/icons/tg.svg" value="Telegram" data-value="Telegram" selected>Ваш Telegram
                                         </option>
-                                        <option data-icon="img/icons/max.svg" value="2">Ваш Max</option>
-                                        <option data-icon="svg-phone" value="3">Телефон</option>
+                                        <option data-icon="img/icons/max.svg" value="Max" data-value="Max">Ваш Max</option>
+                                        <option data-icon="svg-phone" value="Телефон" data-value="Телефон">Телефон</option>
                                     </select>
                                 </div>
                                 <button type="submit" class="btn">Прикрепить смету</button>
@@ -615,7 +611,7 @@
                 </div>
             </div>
 
-            <div class="block-descr1">
+            <div data-watch="navigator" class="block-descr1">
                 <div class="container">
                     <div class="block-descr1__content">
                         <h2 class="title2">
@@ -673,7 +669,7 @@
                 </div>
             </div>
 
-            <div class="block-descr2 block1">
+            <div data-watch="navigator" class="block-descr2 block1">
                 <div class="block-descr2__content">
                     <a href="files/video.mp4" data-fancybox="video2" class="block-descr2__video">
                         <img loading="lazy" src="img/products/image2.webp" alt="" class="block-descr2__pic1">
@@ -705,7 +701,7 @@
                 </div>
             </div>
 
-            <div class="block-steps">
+            <div data-watch="navigator" class="block-steps">
                 <div class="container">
                     <div class="block-steps__content">
                         <h2 class="title2">
@@ -810,7 +806,7 @@
                 </div>
             </div>
 
-            <div class="block-reviews block1">
+            <div data-watch="navigator" class="block-reviews block1">
                 <div class="container">
                     <div class="block-reviews__contents">
                         <h2 class="title2">
@@ -900,7 +896,7 @@
                 </div>
             </div>
 
-            <div class="block-guarantee block1">
+            <div data-watch="navigator" class="block-guarantee block1">
                 <div class="container">
                     <div class="block-guarantee__content">
                         <h2 class="title2">
@@ -948,7 +944,7 @@
                 </div>
             </div>
 
-            <div class="block-questions">
+            <div data-watch="navigator" class="block-questions">
                 <img loading="lazy" src="img/bg2.webp" alt="" class="block-questions__bg">
                 <div class="container">
                     <div class="block-questions__content">
@@ -1016,10 +1012,10 @@
                         <h2 class="title3">
                             Остались вопросы <span>?</span>
                         </h2>
-                        <form action="#" class="form">
+                        <form data-popup-message="#thanks" method="POST" action="sendmail.php" data-ajax class="form">
                             <div class="form__inputs">
                                 <div class="form__input">
-                                    <input data-required autocomplete="off" type="text" name="form[]"
+                                    <input data-required autocomplete="off" type="text" name="name"
                                         placeholder="Ваше имя" class="input">
                                     <div class="form__icon">
                                         <svg aria-hidden="true" width="11" height="12">
@@ -1028,7 +1024,7 @@
                                     </div>
                                 </div>
                                 <div class="form__input">
-                                    <input data-required autocomplete="off" type="text" name="form[]"
+                                    <input data-required autocomplete="off" type="text" name="phone"
                                         placeholder="Номер телефона" class="input telephone">
                                     <div class="form__icon">
                                         <svg aria-hidden="true" width="12" height="12">

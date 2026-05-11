@@ -61,38 +61,41 @@ body::after {
     transform: scale(0);
     transition: transform 0.3s ease 0s;
     width: 100%;
-    background: #fff;
+    background-color: #15702f;
     overflow: hidden;
-    max-width: 640px;
-    padding: 30px;
+    max-width: 500px;
+    padding: 45px 30px;
+    border-radius: 5px;
     .lock & {
         visibility: visible;
     }
     @media (max-width: 550px) {
-        padding: 30px 20px;
+        padding: 45px 20px 30px 20px;
     }
     @media (max-width: 390px) {
-        padding: 30px 15px;
+        padding: 45px 15px 30px 15px;
     }
 }
 
 .popup__close {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 0px;
+    right: 0px;
     cursor: pointer;
-    width: 20px;
-    height: 20px;
+    width: 40px;
+    height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
-    img {
-        width: 15px;
-        height: auto;
+    background-color: #05cf78;
+    border-radius: 0px 12px 0px 12px;
+    svg {
+        fill: #fff;
     }
 }
 
 .popup-forms {
+    color: #fff;
     // .popup-forms__body
 
     &__body {
@@ -102,6 +105,12 @@ body::after {
         @media (max-width: 768px) {
             gap: 20px;
         }
+        .form__inputs {
+            grid-template-columns: 1fr;
+        }
+        .form__text {
+            text-align: center;
+        }
     }
 
     // .popup-forms__top
@@ -109,12 +118,14 @@ body::after {
     &__top {
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        align-items: center;
+        gap: 20px;
         p {
+            text-align: center;
             font-weight: 400;
             font-size: 16px;
-            text-align: center;
-            line-height: 120%;
+            line-height: 150%;
+            color: rgba(225, 225, 225, 0.7);
             @media (max-width: 768px) {
                 font-size: 14px;
             }
@@ -124,12 +135,14 @@ body::after {
     // .popup-forms__title
 
     &__title {
-        font-weight: 500;
-        font-size: 32px;
-        line-height: 110%;
         text-align: center;
+        font-weight: 800;
+        font-size: 30px;
+        line-height: 133%;
+        margin-bottom: -10px;
         @media (max-width: 768px) {
-            font-size: 26px;
+            margin-bottom: 0px;
+            font-size: 24px;
         }
     }
 }

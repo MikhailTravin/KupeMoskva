@@ -74,6 +74,7 @@
             font-weight: 400;
             font-size: 16px;
             line-height: 125%;
+            color: var(--252422);
             &::placeholder {
                 color: var(--9d9d9d);
             }
@@ -344,6 +345,13 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
+    @media (max-width: 768px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    @media (max-width: 480px) {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
     // .options__item
 
     &__item {
