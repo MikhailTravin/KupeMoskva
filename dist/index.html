@@ -87,6 +87,65 @@
 			</header>
 			<main class="main">
 
+				<div class="block-intro">
+					<img src="img/bg1.webp" alt="" class="block-intro__bg1">
+					<div class="block-intro__image">
+						<img src="img/image2.webp" alt="">
+					</div>
+					<div class="container">
+						<div class="block-intro__body">
+							<div class="block-intro__top">
+								<div class="block-intro__badge">
+									С выгодой до 30% до конца недели!
+								</div>
+								<div class="block-intro__location">
+									<div class="block-intro__location-icon">
+										<svg aria-hidden="true" width="15" height="18">
+											<use xlink:href="img/sprite.svg#location"></use>
+										</svg>
+									</div>
+									<span>В москве</span>
+								</div>
+							</div>
+							<div class="block-intro__title">
+								<h1 class="title1">
+									Шкафы-купе на заказ
+								</h1>
+								<div class="block-intro__text">
+									<div class="block-intro__text-icon">
+										<svg aria-hidden="true" width="26" height="26">
+											<use xlink:href="img/sprite.svg#icon"></use>
+										</svg>
+									</div>
+									<span>напрямую
+										от производителя <strong>за 10 дней</strong></span>
+								</div>
+							</div>
+							<div class="block-text">
+								<div class="block-text">
+									<div class="block-text__icon">
+										<svg aria-hidden="true" width="30" height="27">
+											<use xlink:href="img/sprite.svg#check1"></use>
+										</svg>
+									</div>
+									<p>
+										Бесплатный выезд дизайнера-замерщика с каталогом материалов и создание 3D-проекта у
+										вас дома
+									</p>
+								</div>
+							</div>
+							<div class="block-intro__buttons">
+								<a href="./" data-popup="#calculate" class="btn btn-green">
+									<span>Рассчитать стоимость</span>
+								</a>
+								<a href="./" data-popup="#call-surveyor" class="btn btn-yellow">
+									<span>Вызвать замерщика</span>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
 				<div class="block-benefits">
 					<div class="container">
 						<div class="block-benefits__body">
@@ -654,8 +713,10 @@
 										<select name="select" class="select" data-editable>
 											<option data-icon="img/icons/tg.svg" value="Telegram" data-value="Telegram" selected>Ваш Telegram
 											</option>
-											<option data-icon="img/icons/max.svg" value="Max" data-value="Max">Ваш Max</option>
-											<option data-icon="svg-phone" value="Телефон" data-value="Телефон">Телефон</option>
+											<option data-icon="img/icons/max.svg" value="Max" data-value="Max">Ваш Max
+											</option>
+											<option data-icon="svg-phone" value="Телефон" data-value="Телефон">Телефон
+											</option>
 										</select>
 									</div>
 									<button type="submit" class="btn">Прикрепить смету</button>
@@ -1323,6 +1384,47 @@
 								<button type="submit" class="btn">Вызвать замерщика</button>
 								<div class="form__text">
 									Нажимая на кнопку “Вызвать замерщика” вы соглашаетесь с <a href="./">политикой
+										конфиденциальности</a>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="calculate" aria-hidden="true" class="popup popup-forms">
+			<div class="popup__wrapper">
+				<div class="popup__content">
+					<div data-close class="popup__close">
+						<svg aria-hidden="true" width="16" height="16">
+							<use xlink:href="img/sprite.svg#close"></use>
+						</svg>
+					</div>
+					<div class="popup-forms__body">
+						<div class="popup-forms__top">
+							<div class="popup-forms__title">Рассчитать стоимость</div>
+						</div>
+						<form data-popup-message="#thanks" method="POST" action="send-calculate.php" data-ajax class="form">
+							<div class="form__inputs">
+								<div class="form__input">
+									<input data-required autocomplete="off" type="text" name="name" placeholder="Ваше имя" class="input">
+									<div class="form__icon">
+										<svg aria-hidden="true" width="11" height="12">
+											<use xlink:href="img/sprite.svg#user"></use>
+										</svg>
+									</div>
+								</div>
+								<div class="form__input">
+									<input data-required autocomplete="off" type="text" name="phone" placeholder="Номер телефона" class="input telephone">
+									<div class="form__icon">
+										<svg aria-hidden="true" width="12" height="12">
+											<use xlink:href="img/sprite.svg#phone"></use>
+										</svg>
+									</div>
+								</div>
+								<button type="submit" class="btn">Рассчитать стоимость</button>
+								<div class="form__text">
+									Нажимая на кнопку “Рассчитать стоимость” вы соглашаетесь с <a href="./">политикой
 										конфиденциальности</a>
 								</div>
 							</div>
