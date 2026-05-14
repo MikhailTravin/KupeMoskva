@@ -11,6 +11,65 @@
         {% include 'blocks/header.njk' %}
         <main class="main">
 
+            <div class="block-intro">
+                <img src="img/bg1.webp" alt="" class="block-intro__bg1">
+                <div class="block-intro__image">
+                    <img src="img/image2.webp" alt="">
+                </div>
+                <div class="container">
+                    <div class="block-intro__body">
+                        <div class="block-intro__top">
+                            <div class="block-intro__badge">
+                                С выгодой до 30% до конца недели!
+                            </div>
+                            <div class="block-intro__location">
+                                <div class="block-intro__location-icon">
+                                    <svg aria-hidden="true" width="15" height="18">
+                                        <use xlink:href="img/sprite.svg#location"></use>
+                                    </svg>
+                                </div>
+                                <span>В москве</span>
+                            </div>
+                        </div>
+                        <div class="block-intro__title">
+                            <h1 class="title1">
+                                Шкафы-купе на заказ
+                            </h1>
+                            <div class="block-intro__text">
+                                <div class="block-intro__text-icon">
+                                    <svg aria-hidden="true" width="26" height="26">
+                                        <use xlink:href="img/sprite.svg#icon"></use>
+                                    </svg>
+                                </div>
+                                <span>напрямую
+                                    от производителя <strong>за 10 дней</strong></span>
+                            </div>
+                        </div>
+                        <div class="block-text">
+                            <div class="block-text">
+                                <div class="block-text__icon">
+                                    <svg aria-hidden="true" width="30" height="27">
+                                        <use xlink:href="img/sprite.svg#check1"></use>
+                                    </svg>
+                                </div>
+                                <p>
+                                    Бесплатный выезд дизайнера-замерщика с каталогом материалов и создание 3D-проекта у
+                                    вас дома
+                                </p>
+                            </div>
+                        </div>
+                        <div class="block-intro__buttons">
+                            <a href="./" data-popup="#calculate" class="btn btn-green">
+                                <span>Рассчитать стоимость</span>
+                            </a>
+                            <a href="./" data-popup="#call-surveyor" class="btn btn-yellow">
+                                <span>Вызвать замерщика</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="block-benefits">
                 <div class="container">
                     <div class="block-benefits__body">
@@ -598,10 +657,13 @@
                             <div class="form__inputs">
                                 <div class="form__input">
                                     <select name="select" class="select" data-editable>
-                                        <option data-icon="img/icons/tg.svg" value="Telegram" data-value="Telegram" selected>Ваш Telegram
+                                        <option data-icon="img/icons/tg.svg" value="Telegram" data-value="Telegram"
+                                            selected>Ваш Telegram
                                         </option>
-                                        <option data-icon="img/icons/max.svg" value="Max" data-value="Max">Ваш Max</option>
-                                        <option data-icon="svg-phone" value="Телефон" data-value="Телефон">Телефон</option>
+                                        <option data-icon="img/icons/max.svg" value="Max" data-value="Max">Ваш Max
+                                        </option>
+                                        <option data-icon="svg-phone" value="Телефон" data-value="Телефон">Телефон
+                                        </option>
                                     </select>
                                 </div>
                                 <button type="submit" class="btn">Прикрепить смету</button>
@@ -813,43 +875,33 @@
                             Отзывы о нас
                         </h2>
                         <div class="block-reviews__content">
-                            <div class="block-reviews__navigation">
-                                <button type="button" data-filter="all" class="block-reviews__title active">
-                                    <span>Все отзывы</span>
-                                </button>
-                                <button type="button" data-filter="video-reviews" class="block-reviews__title">
-                                    <img loading="lazy" src="img/icons/play2.svg" alt="">
-                                    <span>Видео-отзывы</span>
-                                </button>
-                                <button type="button" data-filter="yandex-map" class="block-reviews__title">
-                                    <img loading="lazy" src="img/icons/map.svg" alt="">
-                                    <span>Яндекс карта</span>
-                                </button>
-                                <button type="button" data-filter="avito" class="block-reviews__title">
-                                    <img loading="lazy" src="img/icons/avito.svg" alt="">
-                                    <span>Авито</span>
-                                </button>
-                                <button type="button" data-filter="otzovik" class="block-reviews__title">
-                                    <img loading="lazy" src="img/icons/otzovik.svg" alt="">
-                                    <span>Отзовик</span>
-                                </button>
-                            </div>
+                            <!--
+								<div class="block-reviews__navigation">
+									<button type="button" data-filter="all" class="block-reviews__title active">
+										<span>Все отзывы</span>
+									</button>
+									<button type="button" data-filter="yandex-map" class="block-reviews__title">
+										<img loading="lazy" src="img/icons/map.svg" alt="">
+										<span>Яндекс карта</span>
+									</button>
+									
+									<button type="button" data-filter="video-reviews" class="block-reviews__title">
+										<img loading="lazy" src="img/icons/play2.svg" alt="">
+										<span>Видео-отзывы</span>
+									</button>
+									<button type="button" data-filter="avito" class="block-reviews__title">
+										<img loading="lazy" src="img/icons/avito.svg" alt="">
+										<span>Авито</span>
+									</button>
+									<button type="button" data-filter="otzovik" class="block-reviews__title">
+										<img loading="lazy" src="img/icons/otzovik.svg" alt="">
+										<span>Отзовик</span>
+									</button>
+								</div>-->
                             <div class="block-reviews__body">
                                 <div class="block-reviews__slider swiper">
                                     <div class="block-reviews__wrapper swiper-wrapper">
-                                        <div data-filter="video-reviews"
-                                            class="block-reviews__slide swiper-slide slide-bg">
-                                            <a href="files/video.mp4" data-fancybox="video1">
-                                                <img loading="lazy" src="img/products/image1.webp" alt=""
-                                                    class="block-reviews__pic1">
-                                                <div class="play">
-                                                    <svg aria-hidden="true" width="20" height="27">
-                                                        <use xlink:href="img/sprite.svg#play"></use>
-                                                    </svg>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div data-filter="yandex-map" class="block-reviews__slide swiper-slide">
+                                        <div class="block-reviews__slide swiper-slide">
                                             <a href="img/review1.webp" data-fancybox="gallery1">
                                                 <img loading="lazy" src="img/review1.webp" alt=""
                                                     class="block-reviews__pic1">
@@ -858,37 +910,126 @@
                                                 </div>
                                             </a>
                                         </div>
-                                        <div data-filter="avito" class="block-reviews__slide swiper-slide">
-                                            <a href="img/review2.webp" data-fancybox="gallery2">
+                                        <div class="block-reviews__slide swiper-slide">
+                                            <a href="img/review2.webp" data-fancybox="gallery1">
                                                 <img loading="lazy" src="img/review2.webp" alt=""
                                                     class="block-reviews__pic1">
                                                 <div class="block-reviews__logo">
-                                                    <img loading="lazy" src="img/icons/avito.svg" alt="">
+                                                    <img loading="lazy" src="img/icons/map.svg" alt="">
                                                 </div>
                                             </a>
                                         </div>
-                                        <div data-filter="otzovik" class="block-reviews__slide swiper-slide">
-                                            <a href="img/review1.webp" data-fancybox="gallery3">
-                                                <img loading="lazy" src="img/review1.webp" alt=""
+                                        <div class="block-reviews__slide swiper-slide">
+                                            <a href="img/review3.webp" data-fancybox="gallery1">
+                                                <img loading="lazy" src="img/review3.webp" alt=""
                                                     class="block-reviews__pic1">
                                                 <div class="block-reviews__logo">
-                                                    <img loading="lazy" src="img/icons/otzovik.svg" alt="">
+                                                    <img loading="lazy" src="img/icons/map.svg" alt="">
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="block-reviews__slide swiper-slide">
+                                            <a href="img/review4.webp" data-fancybox="gallery1">
+                                                <img loading="lazy" src="img/review4.webp" alt=""
+                                                    class="block-reviews__pic1">
+                                                <div class="block-reviews__logo">
+                                                    <img loading="lazy" src="img/icons/map.svg" alt="">
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="block-reviews__slide swiper-slide">
+                                            <a href="img/review5.webp" data-fancybox="gallery1">
+                                                <img loading="lazy" src="img/review5.webp" alt=""
+                                                    class="block-reviews__pic1">
+                                                <div class="block-reviews__logo">
+                                                    <img loading="lazy" src="img/icons/map.svg" alt="">
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="block-reviews__slide swiper-slide">
+                                            <a href="img/review6.webp" data-fancybox="gallery1">
+                                                <img loading="lazy" src="img/review6.webp" alt=""
+                                                    class="block-reviews__pic1">
+                                                <div class="block-reviews__logo">
+                                                    <img loading="lazy" src="img/icons/map.svg" alt="">
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="block-reviews__slide swiper-slide">
+                                            <a href="img/review7.webp" data-fancybox="gallery1">
+                                                <img loading="lazy" src="img/review7.webp" alt=""
+                                                    class="block-reviews__pic1">
+                                                <div class="block-reviews__logo">
+                                                    <img loading="lazy" src="img/icons/map.svg" alt="">
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="block-reviews__slide swiper-slide">
+                                            <a href="img/review8.webp" data-fancybox="gallery1">
+                                                <img loading="lazy" src="img/review8.webp" alt=""
+                                                    class="block-reviews__pic1">
+                                                <div class="block-reviews__logo">
+                                                    <img loading="lazy" src="img/icons/map.svg" alt="">
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="block-reviews__slide swiper-slide">
+                                            <a href="img/review9.webp" data-fancybox="gallery1">
+                                                <img loading="lazy" src="img/review9.webp" alt=""
+                                                    class="block-reviews__pic1">
+                                                <div class="block-reviews__logo">
+                                                    <img loading="lazy" src="img/icons/map.svg" alt="">
                                                 </div>
                                             </a>
                                         </div>
                                     </div>
+                                    <!--
+											<div data-filter="video-reviews" class="block-reviews__slide swiper-slide slide-bg">
+												<a href="files/video.mp4" data-fancybox="video1">
+													<img loading="lazy" src="img/products/image1.webp" alt="" class="block-reviews__pic1">
+													<div class="play">
+														<svg aria-hidden="true" width="20" height="27">
+															<use xlink:href="img/sprite.svg#play"></use>
+														</svg>
+													</div>
+												</a>
+											</div>
+											<div data-filter="yandex-map" class="block-reviews__slide swiper-slide">
+												<a href="img/review1.webp" data-fancybox="gallery1">
+													<img loading="lazy" src="img/review1.webp" alt="" class="block-reviews__pic1">
+													<div class="block-reviews__logo">
+														<img loading="lazy" src="img/icons/map.svg" alt="">
+													</div>
+												</a>
+											</div>
+											<div data-filter="avito" class="block-reviews__slide swiper-slide">
+												<a href="img/review2.webp" data-fancybox="gallery2">
+													<img loading="lazy" src="img/review2.webp" alt="" class="block-reviews__pic1">
+													<div class="block-reviews__logo">
+														<img loading="lazy" src="img/icons/avito.svg" alt="">
+													</div>
+												</a>
+											</div>
+											<div data-filter="otzovik" class="block-reviews__slide swiper-slide">
+												<a href="img/review1.webp" data-fancybox="gallery3">
+													<img loading="lazy" src="img/review1.webp" alt="" class="block-reviews__pic1">
+													<div class="block-reviews__logo">
+														<img loading="lazy" src="img/icons/otzovik.svg" alt="">
+													</div>
+												</a>
+											</div>-->
                                 </div>
-                                <div class="block-reviews__arrows">
-                                    <div class="block-reviews__arrow-prev arrow-prev">
-                                        <svg aria-hidden="true" width="12" height="20">
-                                            <use xlink:href="img/sprite.svg#arrow1"></use>
-                                        </svg>
-                                    </div>
-                                    <div class="block-reviews__arrow-next arrow-next">
-                                        <svg aria-hidden="true" width="12" height="20">
-                                            <use xlink:href="img/sprite.svg#arrow1"></use>
-                                        </svg>
-                                    </div>
+                            </div>
+                            <div class="block-reviews__arrows">
+                                <div class="block-reviews__arrow-prev arrow-prev">
+                                    <svg aria-hidden="true" width="12" height="20">
+                                        <use xlink:href="img/sprite.svg#arrow1"></use>
+                                    </svg>
+                                </div>
+                                <div class="block-reviews__arrow-next arrow-next">
+                                    <svg aria-hidden="true" width="12" height="20">
+                                        <use xlink:href="img/sprite.svg#arrow1"></use>
+                                    </svg>
                                 </div>
                             </div>
                         </div>
@@ -1043,6 +1184,15 @@
                         </form>
                     </div>
                 </div>
+            </div>
+
+            <div class="fixed-socials">
+                <a target="_blank" href="./">
+                    <img src="img/icons/tg.svg" alt="">
+                </a>
+                <a target="_blank" href="./">
+                    <img src="img/icons/wh.svg" alt="">
+                </a>
             </div>
 
         </main>
