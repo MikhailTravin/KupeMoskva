@@ -172,10 +172,11 @@ if (size) {
 
 //========================================================================================================================================================
 
-const filterButtons = document.querySelectorAll('.block-reviews__navigation .block-reviews__title');
-if (filterButtons.length) {
+const swiperContainer = document.querySelector('.block-reviews__slider');
+
+if (swiperContainer) {
   const slides = document.querySelectorAll('.block-reviews__slide');
-  const swiperContainer = document.querySelector('.block-reviews__slider');
+  const filterButtons = document.querySelectorAll('.block-reviews__navigation .block-reviews__title');
   let swiperReviews = null;
 
   if (swiperContainer) {
@@ -201,7 +202,6 @@ if (filterButtons.length) {
       },
     });
   }
-
   function setActiveButton(activeFilter) {
     filterButtons.forEach(button => {
       const filterValue = button.getAttribute('data-filter');
