@@ -141,7 +141,8 @@ a {
   transition:
     background-color 0.3s,
     color 0.3s,
-    opacity 0.3s;
+    opacity 0.3s,
+    box-shadow 0.3s;
   &:hover {
     color: #ffffff;
     background-color: #05cf78;
@@ -149,6 +150,16 @@ a {
   span {
     display: block;
     margin-top: 2px;
+  }
+  &.btn-yellow {
+    box-shadow:
+      0 30px 60px 0 rgba(37, 36, 34, 0.1),
+      0 4px 0 0 #dab22e;
+    &:hover {
+      box-shadow:
+        0 30px 60px 0 rgba(37, 36, 34, 0.1),
+        0 4px 0 0 var(--298443);
+    }
   }
   &.btn-green {
     min-height: 77px;
