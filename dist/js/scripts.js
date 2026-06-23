@@ -163,7 +163,7 @@ if (telephone) {
 const size = document.querySelectorAll('.size');
 if (size) {
   Inputmask({
-    "mask": "999x99x99",
+    "mask": "9999x999x999",
     "showMaskOnHover": false,
   }).mask(size);
 }
@@ -1777,15 +1777,7 @@ if (quizSteps) {
       const result = await response.json();
 
       if (response.ok && result.success) {
-
-        if (quizSteps && quizSend) {
-          quizSteps.style.display = 'none';
-          quizSend.style.display = 'block';
-
-          setTimeout(() => {
-            quizSend.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }, 100);
-        }
+        window.location.href = 'thanks.html';
       } else {
         throw new Error(result.message || 'Ошибка отправки');
       }
