@@ -1,40 +1,20 @@
 <?php
 
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
 
-// Данные для входа в Gmail
-$smtp_email = 'mikhail.travin@gmail.com';
-$smtp_password = 'pogvnnfcuvruxrll';
+header('Content-Type: application/json; charset=utf-8');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 	echo json_encode(['success' => false, 'message' => 'Только POST запросы']);
 	exit;
 }
 
-$phpmailer_path = __DIR__ . '/PHPMailer/';
+// Email получателя
+$to_email = 'Kupemoskva@yandex.ru';
 
-$required_files = [
-	$phpmailer_path . 'src/Exception.php',
-	$phpmailer_path . 'src/PHPMailer.php',
-	$phpmailer_path . 'src/SMTP.php'
-];
-
-foreach ($required_files as $file) {
-	if (!file_exists($file)) {
-		echo json_encode(['success' => false, 'message' => 'Не найден файл: ' . basename($file)]);
-		exit;
-	}
-}
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-require $phpmailer_path . 'src/Exception.php';
-require $phpmailer_path . 'src/PHPMailer.php';
-require $phpmailer_path . 'src/SMTP.php';
-
-// Собираем данные только с нужных полей
+// Формируем тело письма
 $body = "Заявка на звонок\n\n";
 
 if (isset($_POST['name']) && !empty($_POST['name'])) {
@@ -50,84 +30,39 @@ if (empty($_POST['name']) && empty($_POST['phone'])) {
 	$body .= "POST данные: " . print_r($_POST, true);
 }
 
-// Настройка и отправка
-$mail = new PHPMailer(true);
+// Тема письма
+$subject = '=?UTF-8?B?' . base64_encode('Заявка на звонок - ' . date('d.m.Y H:i')) . '?=';
 
-try {
-	// Настройки сервера
-	$mail->isSMTP();
-	$mail->Host = 'smtp.gmail.com';
-	$mail->SMTPAuth = true;
-	$mail->Username = $smtp_email;
-	$mail->Password = $smtp_password;
-	$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-	$mail->Port = 587;
-	$mail->CharSet = 'UTF-8';
+// Заголовки письма
+$headers = "From: noreply@kupemoskva.ru\r\n";
+$headers .= "Reply-To: noreply@kupemoskva.ru\r\n";
+$headers .= "Content-Type: text/plain; charset=utf-8\r\n";
+$headers .= "Content-Transfer-Encoding: 8bit\r\n";
+$headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
 
-	$mail->SMTPOptions = [
-		'ssl' => [
-			'verify_peer' => false,
-			'verify_peer_name' => false,
-			'allow_self_signed' => true
-		]
-	];
+// Дополнительные заголовки для уменьшения спама
+$headers .= "MIME-Version: 1.0\r\n";
 
-	$mail->setFrom($smtp_email, 'Заявка с сайта');
-	$mail->addAddress($smtp_email);
-	$mail->addReplyTo($smtp_email, 'Заявка с сайта');
-
-	$mail->isHTML(false);
-	$mail->Subject = '=?UTF-8?B?' . base64_encode('Заявка на звонок - ' . date('d.m.Y H:i')) . '?=';
-	$mail->Body = $body;
-
-	$mail->send();
-	$response = ['success' => true, 'message' => 'Данные успешно отправлены!'];
-} catch (Exception $e) {
-	$error = $mail->ErrorInfo;
-
-	if (strpos($error, 'authenticate') !== false || strpos($error, 'password') !== false) {
-		try {
-			$mail2 = new PHPMailer(true);
-			$mail2->isSMTP();
-			$mail2->Host = 'smtp.gmail.com';
-			$mail2->SMTPAuth = true;
-			$mail2->Username = $smtp_email;
-			$mail2->Password = $smtp_password;
-			$mail2->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-			$mail2->Port = 465;
-			$mail2->CharSet = 'UTF-8';
-
-			$mail2->SMTPOptions = [
-				'ssl' => [
-					'verify_peer' => false,
-					'verify_peer_name' => false,
-					'allow_self_signed' => true
-				]
-			];
-
-			$mail2->setFrom($smtp_email, 'Заявка с сайта');
-			$mail2->addAddress($smtp_email);
-			$mail2->isHTML(false);
-			$mail2->Subject = '=?UTF-8?B?' . base64_encode('Новая заявка - ' . date('d.m.Y H:i')) . '?=';
-			$mail2->Body = $body;
-
-			$mail2->send();
-			$response = ['success' => true, 'message' => 'Данные успешно отправлены!'];
-		} catch (Exception $e2) {
-			$response = [
-				'success' => false,
-				'message' => 'Ошибка отправки: ' . $e2->getMessage(),
-				'error_details' => 'Проверьте пароль приложения Gmail и настройки безопасности'
-			];
+// Отправка письма
+if (mail($to_email, $subject, $body, $headers)) {
+	echo json_encode(['success' => true, 'message' => 'Данные успешно отправлены!']);
+} else {
+	// Если mail() не сработал, пробуем отправить через sendmail
+	if (function_exists('sendmail')) {
+		$result = sendmail($to_email, $subject, $body, $headers);
+		if ($result) {
+			echo json_encode(['success' => true, 'message' => 'Данные успешно отправлены!']);
+		} else {
+			echo json_encode(['success' => false, 'message' => 'Ошибка отправки письма. Попробуйте позже.']);
 		}
 	} else {
-		$response = [
+		// Логируем ошибку
+		error_log("Ошибка отправки письма на $to_email");
+		error_log("POST данные: " . print_r($_POST, true));
+
+		echo json_encode([
 			'success' => false,
-			'message' => 'Ошибка SMTP: ' . $error,
-			'error_details' => 'Проверьте подключение к интернету и настройки SMTP'
-		];
+			'message' => 'Ошибка отправки письма. Пожалуйста, попробуйте позже или свяжитесь с нами по телефону.'
+		]);
 	}
 }
-
-header('Content-Type: application/json; charset=utf-8');
-echo json_encode($response, JSON_UNESCAPED_UNICODE);
