@@ -1393,123 +1393,17 @@ function formSubmit() {
       formValidate.formClean(form);
     }
 
-    const popupSelector = form.dataset.popupMessage;
-
-    if (popupSelector) {
-      const targetPopup = document.querySelector(popupSelector);
-
-      if (!targetPopup) {
-        console.error('Целевой попап не найден:', popupSelector);
-        return;
-      }
-
-      const parentPopup = form.closest('.popup');
-
-      if (parentPopup) {
-        parentPopup.classList.remove('popup_show');
-        parentPopup.setAttribute('aria-hidden', 'true');
-
-        if (typeof modules_flsModules !== 'undefined' && modules_flsModules.popup) {
-          modules_flsModules.popup.isOpen = false;
-          modules_flsModules.popup._selectorOpen = false;
-
-          setTimeout(() => {
-            modules_flsModules.popup.open(popupSelector);
-            setupThanksCloseHandler(targetPopup);
-          }, 350);
-        } else {
-          setTimeout(() => {
-            document.querySelectorAll('.popup_show').forEach(p => {
-              p.classList.remove('popup_show');
-              p.setAttribute('aria-hidden', 'true');
-            });
-
-            targetPopup.classList.add('popup_show');
-            targetPopup.setAttribute('aria-hidden', 'false');
-
-            if (!document.documentElement.classList.contains('popup-show')) {
-              document.documentElement.classList.add('popup-show');
-
-              if (typeof bodyLock === 'function') {
-                bodyLock();
-              } else {
-                document.documentElement.classList.add('lock');
-              }
-            }
-
-            setupThanksCloseHandler(targetPopup);
-          }, 350);
-        }
-      } else {
-        if (typeof modules_flsModules !== 'undefined' && modules_flsModules.popup) {
-          if (modules_flsModules.popup.isOpen) {
-            modules_flsModules.popup.close();
-
-            setTimeout(() => {
-              modules_flsModules.popup._selectorOpen = false;
-              modules_flsModules.popup.open(popupSelector);
-            }, 350);
-          } else {
-            modules_flsModules.popup.open(popupSelector);
-          }
-        } else {
-          document.querySelectorAll('.popup_show').forEach(p => {
-            p.classList.remove('popup_show');
-            p.setAttribute('aria-hidden', 'true');
-          });
-
-          targetPopup.classList.add('popup_show');
-          targetPopup.setAttribute('aria-hidden', 'false');
-          document.documentElement.classList.add('popup-show');
-
-          if (typeof bodyLock === 'function') {
-            bodyLock();
-          } else {
-            document.documentElement.classList.add('lock');
-          }
-        }
-
-        setupThanksCloseHandler(targetPopup);
-      }
-    }
-  }
-
-  function setupThanksCloseHandler(popup) {
-    if (!popup) return;
-
-    const closeButtons = popup.querySelectorAll('[data-close]');
-    const wrapper = popup.querySelector('.popup__wrapper');
-
-    closeButtons.forEach(btn => {
-      btn.addEventListener('click', function (e) {
-        setTimeout(() => {
-          const openPopups = document.querySelectorAll('.popup_show');
-          if (openPopups.length === 0 ||
-            (openPopups.length === 1 && openPopups[0] === popup && !popup.classList.contains('popup_show'))) {
-            document.documentElement.classList.remove('lock', 'popup-show');
-            if (typeof bodyLock === 'function') {
-              bodyUnlock();
-            }
-          }
-        }, 300);
-      });
+    document.querySelectorAll('.popup_show').forEach(p => {
+      p.classList.remove('popup_show');
+      p.setAttribute('aria-hidden', 'true');
     });
 
-    if (wrapper) {
-      wrapper.addEventListener('click', function (e) {
-        if (e.target === wrapper) {
-          setTimeout(() => {
-            const openPopups = document.querySelectorAll('.popup_show');
-            if (openPopups.length === 0) {
-              document.documentElement.classList.remove('lock', 'popup-show');
-              if (typeof bodyLock === 'function') {
-                bodyUnlock();
-              }
-            }
-          }, 300);
-        }
-      });
+    document.documentElement.classList.remove('lock', 'popup-show');
+    if (typeof bodyUnlock === 'function') {
+      bodyUnlock();
     }
+
+    window.location.href = 'thanks.html';
   }
 }
 formSubmit();
