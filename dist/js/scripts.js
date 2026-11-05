@@ -1204,6 +1204,42 @@ function formSubmit() {
   }
 
   async function formSubmitAction(form, e) {
+    let hasError = false;
+    const selectContents = form.querySelectorAll('.select__content');
+
+    selectContents.forEach(content => {
+      const selectItem = content.closest('.select');
+      if (!selectItem) return;
+
+      const originalSelect = selectItem.querySelector('select');
+      if (!originalSelect) return;
+
+      const value = content.value.trim();
+      const formInput = selectItem.closest('.form__input');
+
+      if (!value) {
+        hasError = true;
+        content.classList.add('_form-error');
+        if (formInput) {
+          formInput.classList.add('_form-error');
+        }
+      } else {
+        content.classList.remove('_form-error');
+        if (formInput) {
+          formInput.classList.remove('_form-error');
+        }
+      }
+    });
+
+    if (hasError) {
+      e.preventDefault();
+      const firstError = form.querySelector('._form-error');
+      if (firstError) {
+        firstError.focus();
+      }
+      return;
+    }
+
     const error = !form.hasAttribute('data-no-validate') ? formValidate.getErrors(form) : 0;
 
     if (error === 0) {
@@ -1249,7 +1285,6 @@ function formSubmit() {
           valueInput.name = 'user_contact_value';
           valueInput.value = contactValue;
           form.appendChild(valueInput);
-
         });
 
         const formAction = form.getAttribute('action') ? form.getAttribute('action').trim() : '#';
@@ -1291,14 +1326,12 @@ function formSubmit() {
 
             } else {
               alert("Ошибка: " + (responseResult.message || "Неизвестная ошибка"));
-              console.error("Ответ сервера:", responseResult);
             }
           } else {
             alert("Ошибка сервера");
             form.classList.remove('_sending');
           }
         } catch (error) {
-          console.error('Ошибка отправки формы:', error);
           alert("Ошибка отправки формы");
           form.classList.remove('_sending');
         }
